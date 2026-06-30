@@ -1,0 +1,6 @@
+{
+  "name": "EcoRoute",
+  "description": "A community-driven civic portal for tracking and resolving waste management issues using AI classification and geospatial reports.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

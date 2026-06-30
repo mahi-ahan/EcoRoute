@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile in the EcoRoute platform",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique user ID from Firebase Auth"
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "The user's photo URL"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "staff"],
+          "description": "The user's role (user or staff)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the profile was created"
+        }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "Report": {
+      "title": "Waste Report",
+      "description": "A reported community waste issue",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique report ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who reported this"
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "The email of the reporter"
+        },
+        "userDisplayName": {
+          "type": "string",
+          "description": "The display name of the reporter"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Base64 encoded or URL of the waste photo"
+        },
+        "location": {
+          "type": "object",
+          "description": "Geospatial coordinates of the waste"
+        },
+        "wasteType": {
+          "type": "string",
+          "description": "AI-classified type of waste"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High", "Critical"],
+          "description": "Severity level assessed by AI"
+        },
+        "description": {
+          "type": "string",
+          "description": "User notes or description of the issue"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "In Progress", "Resolved"],
+          "description": "Current status of the report"
+        },
+        "aiAnalysis": {
+          "type": "string",
+          "description": "Detailed AI classification analysis breakdown"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the report was submitted"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the report was last updated"
+        }
+      },
+      "required": ["id", "userId", "imageUrl", "location", "wasteType", "severity", "status", "createdAt", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "An in-app notification for a user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique notification ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Target user ID who should receive this notification"
+        },
+        "reportId": {
+          "type": "string",
+          "description": "The related waste report ID"
+        },
+        "wasteType": {
+          "type": "string",
+          "description": "The type of waste reported"
+        },
+        "oldStatus": {
+          "type": "string",
+          "description": "The status prior to the update"
+        },
+        "newStatus": {
+          "type": "string",
+          "description": "The updated status"
+        },
+        "message": {
+          "type": "string",
+          "description": "Notification message text"
+        },
+        "read": {
+          "type": "boolean",
+          "description": "Whether the user has read the notification"
+        },
+        "emailSent": {
+          "type": "boolean",
+          "description": "Whether an email notice was triggered"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the notification was generated"
+        }
+      },
+      "required": ["id", "userId", "reportId", "oldStatus", "newStatus", "message", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "reports/{reportId}": {
+      "schema": "Report",
+      "description": "Individual waste report document"
+    },
+    "notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "Individual notification document"
+    }
+  }
+}
